@@ -1,31 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New Guest Registration</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f6f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 450px; }
-        h1 { color: #28a745; margin-bottom: 20px; text-align: center; }
-        /* Style for the form fields rendered by {{ form.as_p }} */
-        .container p { margin-bottom: 15px; }
-        .container label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .container input { width: 90%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 15px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Register New Guest</h1>
-        
-        <form method="POST">
-            {% csrf_token %}
-            
-            <!-- This renders all the form fields defined in your forms.py -->
-            {{ form.as_p }} 
+{% extends 'base.html' %}
 
-            <button type="submit">Complete Registration</button>
-        </form>
-    </div>
-</body>
-</html>
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+    <h2 class="text-2xl font-bold text-slate-900 mb-6">Guest Registration</h2>
+    
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        
+        <!-- This renders your form fields with clean spacing -->
+        <div class="space-y-4 form-fields">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="w-full mt-6 bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-slate-800 transition duration-150 shadow-sm">
+            Save Registration
+        </button>
+    </form>
+</div>
+
+<!-- Optional tiny style tweak to make Django's default inputs look professional -->
+<style>
+    .form-fields p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+    .form-fields label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #334155; /* slate-700 */
+    }
+    .form-fields input, .form-fields select, .form-fields textarea {
+        width: 100%;
+        padding: 0.625rem 0.875rem;
+        border-radius: 0.5rem;
+        border: 1px solid #CBD5E1; /* slate-300 */
+        background-color: #F8FAFC; /* slate-50 */
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.15s ease;
+    }
+    .form-fields input:focus {
+        border-color: #0F172A; /* slate-900 */
+        background-color: #FFFFFF;
+    }
+</style>
+{% endblock %}

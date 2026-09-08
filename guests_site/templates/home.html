@@ -1,6 +1,47 @@
-<p> Luxury Hotel and Suites</p>
-<form action = "" method = "POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Register">
-</form>    
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+    <h2 class="text-2xl font-bold text-slate-900 mb-6">Guest Registration</h2>
+    
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        
+        <div class="space-y-4 form-fields">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="w-full mt-6 bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-slate-800 transition duration-150 shadow-sm">
+            Complete Registration
+        </button>
+    </form>
+</div>
+
+<!-- Clean styling for Django's form fields -->
+<style>
+    .form-fields p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+    .form-fields label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #334155; /* slate-700 */
+    }
+    .form-fields input, .form-fields select, .form-fields textarea {
+        width: 100%;
+        padding: 0.625rem 0.875rem;
+        border-radius: 0.5rem;
+        border: 1px solid #CBD5E1; /* slate-300 */
+        background-color: #F8FAFC; /* slate-50 */
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.15s ease;
+    }
+    .form-fields input:focus {
+        border-color: #0F172A; /* slate-900 */
+        background-color: #FFFFFF;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+    <h2 class="text-2xl font-bold text-slate-900 mb-2">Add New Staff Member</h2>
+    <p class="text-sm text-slate-500 mb-6">Create credentials for a new front-desk or management user.</p>
+    
+    <form method="POST" class="space-y-5">
+        {% csrf_token %}
+        
+        <div class="space-y-4 form-fields">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="w-full mt-6 bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-slate-800 transition duration-150 shadow-sm">
+            Create Staff Account
+        </button>
+    </form>
+</div>
+
+<style>
+    .form-fields p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin-bottom: 1rem;
+    }
+    .form-fields label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #334155;
+    }
+    .form-fields input {
+        width: 100%;
+        padding: 0.625rem 0.875rem;
+        border-radius: 0.5rem;
+        border: 1px solid #CBD5E1;
+        background-color: #F8FAFC;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.15s ease;
+    }
+    .form-fields input:focus {
+        border-color: #0F172A;
+        background-color: #FFFFFF;
+    }
+    
+    /* Completely hide Django's bulky default password rules text and bullet lists */
+    .form-fields ul, 
+    .form-fields .helptext, 
+    form .space-y-4 ul {
+        display: none !important;
+    }
+
+    ul.errorlist {
+        display: block !important;
+        color: #EF4444;
+        font-size: 0.8rem;
+        list-style-type: disc;
+        padding-left: 1rem;
+    }
+</style>
+{% endblock %}

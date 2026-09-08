@@ -1,68 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Staff Login</title>
-    <!-- Basic styling to ensure the form appears centered -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        /* Styles to make the form.as_p fields look neat */
-        .container p {
-            margin-bottom: 15px;
-        }
-        .container label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .container input {
-            width: 90%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2 style="text-align: center;">Hotel Staff Login</h2>
-        
-        <form method="post">
-            {% csrf_token %}
-            
-            <!-- This automatically renders the Username and Password fields -->
-            {{ form.as_p }} 
+{% extends 'base.html' %}
 
-            <button type="submit">Log In</button>
-        </form>
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-sm border border-slate-200 mt-10">
+    <h2 class="text-2xl font-bold text-slate-900 mb-6 text-center">Hotel Staff Login</h2>
+    
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
         
-        <!-- Link back to the main registration form if needed -->
-        <p style="text-align: center; margin-top: 15px;"><a href="/register/">Back to Registration</a></p>
-    </div>
-</body>
-</html>
+        <div class="space-y-4 form-fields">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="w-full mt-6 bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-slate-800 transition duration-150 shadow-sm">
+            Log In
+        </button>
+    </form>
+</div>
+
+<!-- Clean styling for Django's login form fields -->
+<style>
+    .form-fields p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+    .form-fields label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #334155; /* slate-700 */
+    }
+    .form-fields input {
+        width: 100%;
+        padding: 0.625rem 0.875rem;
+        border-radius: 0.5rem;
+        border: 1px solid #CBD5E1; /* slate-300 */
+        background-color: #F8FAFC; /* slate-50 */
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.15s ease;
+    }
+    .form-fields input:focus {
+        border-color: #0F172A; /* slate-900 */
+        background-color: #FFFFFF;
+    }
+</style>
+{% endblock %}

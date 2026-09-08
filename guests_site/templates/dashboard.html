@@ -3,59 +3,66 @@
 {% block title %}Staff Dashboard{% endblock title %}
 
 {% block content %}
-<div class="container">
-    <h1 class="text-3xl font-bold mb-6 text-blue-700">Guest Registration Dashboard</h1>
-    
-    <div class="flex justify-end mb-4">
-        <a href="{% url 'register' %}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">
-            + Register New Guest
+<div class="space-y-6">
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900">Guest Registration Dashboard</h1>
+            <p class="text-sm text-slate-500 mt-1">Manage active hotel bookings and guest logs.</p>
+        </div>
+        <a href="{% url 'register' %}" class="inline-flex items-center gap-2 bg-slate-900 text-white font-medium px-4 py-2.5 rounded-lg hover:bg-slate-800 transition duration-150 text-sm shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Register New Guest
         </a>
     </div>
 
-    <div class="overflow-x-auto bg-white rounded-lg shadow">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead>
-                <tr class="bg-gray-50">
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guest Name / Room</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in Date</th>
-                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                
-                {% for guest in all_guests %}
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-medium text-gray-900">{{ guest.first_name }} {{ guest.last_name }}</div>
-                        <div class="text-xs text-gray-500">Room {{ guest.room_number }} for {{ guest.number_of_nights }} Nights</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm text-gray-900">{{ guest.recorded_by }}</div>
-                        <div class="text-xs text-gray-500">{{ guest.check_in_date|date:"M d" }}</div>
-                    </td>
-
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ guest.check_in_date|date:"M d, Y" }}
-                    </td>
-
-                    
-                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="{% url 'guest_update' pk=guest.pk %}" 
-                           class="text-indigo-600 hover:text-indigo-900 transition mr-3">
-                            Edit
-                        </a>
-                        
-                        <a href="{% url 'guest_delete' pk=guest.pk %}" 
-                           class="text-red-600 hover:text-red-900 transition">
-                            Delete
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <!-- Data Table Card -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        <th class="py-4 px-6">Guest Name / Room</th>
+                        <th class="py-4 px-6">Contact / Log Info</th>
+                        <th class="py-4 px-6">Check-in Date</th>
+                        <th class="py-4 px-6 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm text-slate-700">
+                    {% for guest in all_guests %}
+                    <tr class="hover:bg-slate-50/50 transition">
+                        <td class="py-4 px-6 font-medium text-slate-900">
+                            <div class="text-slate-900 font-semibold">{{ guest.first_name }} {{ guest.last_name }}</div>
+                            <div class="text-xs text-slate-500 mt-0.5">Room {{ guest.room_number }} for {{ guest.number_of_nights }} Nights</div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <div class="text-slate-900">{{ guest.recorded_by }}</div>
+                            <div class="text-xs text-slate-500">{{ guest.check_in_date|date:"M d" }}</div>
+                        </td>
+                        <td class="py-4 px-6 text-slate-600">
+                            {{ guest.check_in_date|date:"M d, Y" }}
+                        </td>
+                        <td class="py-4 px-6 text-right space-x-3">
+                            <a href="{% url 'guest_update' pk=guest.pk %}" class="font-medium text-slate-600 hover:text-slate-900 transition">
+                                Edit
+                            </a>
+                            <a href="{% url 'guest_delete' pk=guest.pk %}" class="font-medium text-red-600 hover:text-red-800 transition">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="py-12 text-center text-slate-400 text-sm">
+                            No guests checked in yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-
 </div>
 {% endblock content %}
