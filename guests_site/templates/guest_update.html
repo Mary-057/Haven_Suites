@@ -2,22 +2,50 @@
 {% block title %}Edit Guest Entry{% endblock title %}
 
 {% block content %}
-<div class="main-container">
-    <h1>Edit Guest Registration</h1>
+<div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-slate-200 mt-6">
+    <h1 class="text-2xl font-bold text-slate-900 mb-6">Edit Guest Registration</h1>
     
     <!-- The form method MUST be POST to send data back and trigger the UpdateView's save logic -->
-    <form method="POST">
+    <form method="POST" class="space-y-4">
         {% csrf_token %}
         
         <!-- This is the command that draws all the pre-filled form fields -->
-        {{ form.as_p }} 
+        <div class="space-y-4 form-fields">
+            {{ form.as_p }} 
+        </div>
 
-        <button type="submit" class="button">Save Changes</button>
+        <div class="flex items-center gap-4 mt-6">
+            <button type="submit" class="bg-slate-900 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-slate-800 transition duration-150 shadow-sm text-sm">Save Changes</button>
+            <a href="{% url 'dashboard' %}" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition">Cancel and Go Back</a>
+        </div>
     </form>
-    
-    <div class="mt-4">
-        <!-- Provides a link back to the main data table -->
-        <a href="{% url 'dashboard' %}" class="link">Cancel and Go Back</a>
-    </div>
 </div>
+
+<!-- Clean styling for Django's form fields to match Tailwind theme -->
+<style>
+    .form-fields p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+    .form-fields label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #334155; /* slate-700 */
+    }
+    .form-fields input, .form-fields select, .form-fields textarea {
+        width: 100%;
+        padding: 0.625rem 0.875rem;
+        border-radius: 0.5rem;
+        border: 1px solid #CBD5E1; /* slate-300 */
+        background-color: #F8FAFC; /* slate-50 */
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.15s ease;
+    }
+    .form-fields input:focus, .form-fields select:focus, .form-fields textarea:focus {
+        border-color: #0F172A; /* slate-900 */
+        background-color: #FFFFFF;
+    }
+</style>
 {% endblock content %}

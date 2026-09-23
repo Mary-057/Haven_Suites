@@ -48,9 +48,13 @@
                             <a href="{% url 'guest_update' pk=guest.pk %}" class="font-medium text-slate-600 hover:text-slate-900 transition">
                                 Edit
                             </a>
+                            
+                            {% if request.user.is_superuser %}
                             <a href="{% url 'guest_delete' pk=guest.pk %}" class="font-medium text-red-600 hover:text-red-800 transition">
                                 Delete
                             </a>
+                            {% endif %}
+                            
                         </td>
                     </tr>
                     {% empty %}

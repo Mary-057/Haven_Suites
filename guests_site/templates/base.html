@@ -14,10 +14,14 @@
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="/dashboard/" class="text-lg font-semibold tracking-wide">Haven Suites</a>
             <nav class="space-x-6 text-sm font-medium text-slate-300">
-                {% if user.is_authenticated %}
+                {% if request.user.is_authenticated and not request.path == '/accounts/login/' %}
                     <a href="/dashboard/" class="hover:text-white transition">Dashboard</a>
                     <a href="/register/" class="hover:text-white transition">New Booking</a>
-                    <a href="/staff/add/" class="hover:text-white transition">Add Staff</a>
+                    
+                    {% if request.user.is_superuser %}
+                        <a href="/staff/add/" class="hover:text-white transition">Add Staff</a>
+                    {% endif %}
+                    
                     <a href="/accounts/logout/" class="hover:text-red-400 transition">Logout</a>
                 {% else %}
                     <a href="/accounts/login/" class="hover:text-white transition">Staff Login</a>
