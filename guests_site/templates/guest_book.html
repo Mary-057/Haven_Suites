@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay - Haven Suites</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Automatically styles Django's form fields to match Tailwind */
+        input, select { width: 100%; padding: 0.75rem; margin-top: 0.25rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; background-color: #f8fafc; }
+        input:focus, select:focus { outline: none; border-color: #0f172a; }
+        label { font-weight: 600; color: #334155; }
+        p { margin-bottom: 1.25rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-xl w-full bg-white p-8 rounded-xl shadow-md">
+        <div class="border-b border-slate-200 pb-4 mb-6">
+            <h2 class="text-3xl font-extrabold text-slate-900">Book Your Stay</h2>
+            <p class="text-slate-500 mt-1 mb-0">Fill out your details to reserve a room.</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3 rounded-xl shadow-sm hover:bg-slate-800 transition mt-6">
+                Confirm Booking
+            </button>
+        </form>
+
+        <div class="pt-6 text-center">
+            <a href="{% url 'guest_dashboard' %}" class="text-slate-500 font-medium hover:text-slate-900 transition">
+                Cancel and Return
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Booking - Haven Suites</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-xl w-full bg-white p-8 rounded-xl shadow-md space-y-6">
+        
+        <div class="border-b border-slate-200 pb-4">
+            <h2 class="text-3xl font-extrabold text-slate-900">Welcome, {{ user.username }}!</h2>
+            <p class="text-slate-500 mt-2">Here are your Haven Suites reservation details.</p>
+        </div>
+
+        <div class="space-y-6">
+            {% if booking %}
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                    <ul class="space-y-3">
+                        <li class="flex justify-between">
+                            <span class="font-medium text-slate-500">Name:</span> 
+                            <span class="font-bold text-slate-900">{{ booking.first_name }} {{ booking.last_name }}</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="font-medium text-slate-500">Room Type:</span> 
+                            <span class="font-bold text-slate-900">{{ booking.get_room_type_display }}</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="font-medium text-slate-500">Room Number:</span> 
+                            <span class="font-bold text-slate-900">
+                                {% if booking.room_number %} 
+                                    {{ booking.room_number }} 
+                                {% else %} 
+                                    <em class="text-amber-600">Pending Assignment</em> 
+                                {% endif %}
+                            </span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="font-medium text-slate-500">Check-in Date:</span> 
+                            <span class="font-bold text-slate-900">{{ booking.check_in_date }}</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="font-medium text-slate-500">Nights:</span> 
+                            <span class="font-bold text-slate-900">{{ booking.number_of_nights }}</span>
+                        </li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="bg-slate-100 p-8 rounded-xl text-center border border-slate-200">
+                    <p class="text-slate-600 font-medium mb-6">You currently do not have any active bookings with us.</p>
+                    <a href="{% url 'guest_book' %}" class="inline-block bg-slate-900 text-white font-bold py-3 px-8 rounded-xl shadow-sm hover:bg-slate-800 transition">
+                        Book a Room Now
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="pt-4">
+            <a href="/" class="block w-full text-center bg-slate-900 text-white font-bold py-3 rounded-xl shadow-sm hover:bg-slate-800 transition">
+                Return Home
+            </a>
+        </div>
+        
+    </div>
+
+</body>
+</html>
