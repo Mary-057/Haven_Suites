@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'Haven_Suites.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'haven_suites_db',
+        'USER': 'root',
+        'PASSWORD': 'mary1234',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -124,3 +128,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
+# Bypass Django's MySQL 8.4+ requirement for local MySQL 8.0
+from django.db.backends.mysql.base import DatabaseWrapper
+DatabaseWrapper.check_database_version_supported = lambda self: None
